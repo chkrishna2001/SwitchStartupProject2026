@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json.schemastore.org/vsix-publish",
+  "categories": [
+    "Coding",
+    "Other"
+  ],
+  "identity": {
+    "internalName": "SmartStartupProjectSwitcher"
+  },
+  "overview": "ReleaseNotes.md",
+  "priceCategory": "free",
+  "publisher": "KrishnaChirravuri",
+  "private": false,
+  "qna": true,
+  "tags": [
+    "startup",
+    "multiple",
+    "project switcher"
+  ]
+}
