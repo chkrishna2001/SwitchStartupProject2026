@@ -1,0 +1,40 @@
+name: Build VSIX
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v2
+
+    - name: Restore NuGet Packages
+      run: nuget restore SwitchStartupProject.sln -Verbosity quiet
+
+    - name: Build VSIX
+      run: msbuild SwitchStartupProject.sln /p:Configuration=Release /p:DeployExtension=false /p:ZipPackageCompressionLevel=normal /v:m
+
+    - name: Upload VSIX Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: SmartStartupProjectSwitcher-VSIX
+        path: SwitchStartupProject\bin\Release\*.vsix
+        
+    - name: Publish to Visual Studio Marketplace
+      # Trigger this step ONLY if a VS_MARKETPLACE_PAT secret exists and the user runs a manual trigger/tag
+      if: github.event_name == 'workflow_dispatch'
+      run: |
+        $VsixPublisher = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -prerelease -find **\VsixPublisher.exe | Select-Object -First 1
+        & $VsixPublisher publish -payload "SwitchStartupProject\bin\Release\SmartStartupProjectSwitcher.vsix" -publishManifest "SwitchStartupProject\source.extension.vsixmanifest" -personalAccessToken "${{ secrets.VS_MARKETPLACE_PAT }}"

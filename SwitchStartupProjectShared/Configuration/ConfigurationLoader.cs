@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -20,6 +20,7 @@ namespace SwitchStartupProject
     {
         private const string versionKey = "Version";
         private const int knownVersion = 3;
+        private const string listSingleProjectsKey = "ListSingleProjects";
         private const string listAllProjectsKey = "ListAllProjects";
         private const string multiProjectConfigurationsKey = "MultiProjectConfigurations";
         private const string beginGroupKey = "BeginGroup";
@@ -116,9 +117,9 @@ namespace SwitchStartupProject
                 return _GetDefaultConfiguration();
             }
 
-            var listAllProjects = _GetListAllProjects(settings);
+            var listSingleProjects = _GetListSingleProjects(settings);
             var multiProjectConfigurations = _GetMultiProjectConfigurations(settings);
-            return new Configuration(listAllProjects, multiProjectConfigurations.ToList());
+            return new Configuration(listSingleProjects, multiProjectConfigurations.ToList());
         }
 
         public void CreateDefaultConfigurationFile()
@@ -133,7 +134,7 @@ namespace SwitchStartupProject
             sb.AppendLine("    \"" + versionKey + "\": 3,");
             sb.AppendLine("    ");
             sb.AppendLine("    /*  Create an item in the dropdown list for each project in the solution?  */");
-            sb.AppendLine("    \"" + listAllProjectsKey + "\": true,");
+            sb.AppendLine("    \"" + listSingleProjectsKey + "\": true,");
             sb.AppendLine("");
             sb.AppendLine("    /*");
             sb.AppendLine("        Dictionary of named configurations with one or multiple startup projects");
@@ -198,9 +199,11 @@ namespace SwitchStartupProject
             return _ExistsKey(settings, versionKey) ? settings[versionKey].Value<int>() : 0;
         }
 
-        private static bool _GetListAllProjects(JObject settings)
+        private static bool _GetListSingleProjects(JObject settings)
         {
-            return !_ExistsKey(settings, listAllProjectsKey) || settings[listAllProjectsKey].Value<bool>();
+            if (_ExistsKey(settings, listSingleProjectsKey)) return settings[listSingleProjectsKey].Value<bool>();
+            if (_ExistsKey(settings, listAllProjectsKey)) return settings[listAllProjectsKey].Value<bool>();
+            return true;
         }
 
         private static IEnumerable<MultiProjectConfiguration> _GetMultiProjectConfigurations(JObject settings)

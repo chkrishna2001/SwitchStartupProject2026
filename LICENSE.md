@@ -2,6 +2,7 @@ The BSD 3-Clause License
 
     Copyright (c) 2011-2019, Andreas Bilger
     Copyright (c) 2024, Ernesto Cianciotta
+    Copyright (c) 2026, Krishna Chirravuri (Smart Startup Project Switcher)
     All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:

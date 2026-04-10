@@ -1,11 +1,11 @@
-﻿{
+{
   "title": "SwitchStartupProject configuration file schema",
   "type": "object",
   "properties": {
     "Version": {
       "type": "integer"
     },
-    "ListAllProjects": {
+    "ListSingleProjects": {
       "description": "If true, each project in the solution is added to the dropdown list",
       "type": "boolean"
     },
@@ -58,7 +58,7 @@
     }
   },
   "required": [
-    "ListAllProjects",
+    "ListSingleProjects",
     "MultiProjectConfigurations"
   ]
 }

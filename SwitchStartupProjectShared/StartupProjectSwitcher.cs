@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -242,10 +242,10 @@ namespace SwitchStartupProject
                 var projects = _GetProjects();
                 if (solution.Configuration != null)
                 {
-                    if (solution.Configuration.ListAllProjects)
+                    if (solution.Configuration.ListSingleProjects)
                     {
                         var projectsByName = projects.ToLookup(project => project.Name);
-                        projects.OrderBy(project => project.Name).ForEach(project => startupProjects.Add(new SingleProjectDropdownEntry(project)
+                        projects.Where(p => p.IsLaunchable).OrderBy(project => project.Name).ForEach(project => startupProjects.Add(new SingleProjectDropdownEntry(project)
                         {
                             Disambiguate = projectsByName[project.Name].Count() > 1
                         }));

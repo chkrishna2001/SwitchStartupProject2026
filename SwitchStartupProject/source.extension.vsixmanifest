@@ -1,22 +1,21 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="db7fbd4b-fc87-43d0-b57d-c7fbd8c48139" Version="4.4.1" Language="en-US" Publisher="Ernesto Cianciotta" />
-        <DisplayName>Switch Startup Project 2022</DisplayName>
-        <Description xml:space="preserve">Provides a toolbar dropdown box to switch between startup projects.
-This release is for Visual Studio 2022 and for platforms x64 and Arm64.</Description>
-        <MoreInfo>https://github.com/ernstc/SwitchStartupProject2022</MoreInfo>
+        <Identity Id="a4d1f2e9-42bf-41c3-ab9f-e45f8a002bc5" Version="1.0.0" Language="en-US" Publisher="KrishnaChirravuri" />
+        <DisplayName>Smart Startup Project Switcher</DisplayName>
+        <Description xml:space="preserve">Smartly switch between startup projects and multi-project configurations. Filters out non-launchable class libraries and test projects.</Description>
+        <MoreInfo>https://github.com/chkrishna2001/SwitchStartupProject2026</MoreInfo>
         <License>Resources\LICENSE.md</License>
-        <ReleaseNotes>https://github.com/ernstc/SwitchStartupProject2022/blob/main/ReleaseNotes.md</ReleaseNotes>
+        <ReleaseNotes>https://github.com/chkrishna2001/SwitchStartupProject2026/blob/main/ReleaseNotes.md</ReleaseNotes>
         <Icon>Resources\SwitchStartupProject.ico</Icon>
         <PreviewImage>Resources\preview.png</PreviewImage>
         <Tags>startup;startup project;startup projects;multiple;dropdown</Tags>
     </Metadata>
     <Installation>
-        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, 18.0)">
+        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, 19.0)">
             <ProductArchitecture>amd64</ProductArchitecture>
         </InstallationTarget>
-        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, 18.0)">
+        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, 19.0)">
             <ProductArchitecture>arm64</ProductArchitecture>
         </InstallationTarget>
     </Installation>
@@ -24,7 +23,7 @@ This release is for Visual Studio 2022 and for platforms x64 and Arm64.</Descrip
         <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
     </Dependencies>
     <Prerequisites>
-        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[17.0, 18.0)" DisplayName="Visual Studio core editor" />
+        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[17.0, 19.0)" DisplayName="Visual Studio core editor" />
     </Prerequisites>
     <Assets>
         <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />

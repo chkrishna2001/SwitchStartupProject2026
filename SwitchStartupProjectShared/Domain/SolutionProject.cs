@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -22,6 +22,7 @@ namespace SwitchStartupProject
         public Project Project { get; private set; }
         public string StartArgumentsPropertyName { get; private set; }
         public IList<string> SolutionFolders { get; private set; }
+        public bool IsLaunchable { get; private set; }
 
         protected SolutionProject(IVsHierarchy hierarchy, Project project, string name, IList<Guid> projectTypeGuids, string solutionFullName)
         {
@@ -35,6 +36,7 @@ namespace SwitchStartupProject
             this.Path = _GetProjectPath(Project, solutionFullName, isWebSiteProject);
             this.StartArgumentsPropertyName = projectTypeGuids.Contains(GuidList.guidCPlusPlus) ? "CommandArguments" : "StartArguments";
             this.SolutionFolders = _GetSolutionFolders(hierarchy);
+            this.IsLaunchable = _IsProjectLaunchable(hierarchy, project, projectTypeGuids, isWebSiteProject);
         }
 
         public static SolutionProject FromHierarchy(IVsHierarchy hierarchy, string solutionFullName)
@@ -61,6 +63,40 @@ namespace SwitchStartupProject
             if (isWebSiteProject) return fullPath;  // Website projects need to be set using the full path
             var solutionPath = System.IO.Path.GetDirectoryName(solutionFullName) + @"\";
             return Paths.GetPathRelativeTo(fullPath, solutionPath);
+        }
+
+        private static bool _IsProjectLaunchable(IVsHierarchy hierarchy, Project project, IList<Guid> projectTypeGuids, bool isWebSiteProject)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            if (hierarchy != null && hierarchy.IsCapabilityMatch("TestContainer")) return false; // Filter out test projects
+            try
+            {
+                // Property values are typically ints or strings
+                var outputType = project.Properties?.Item("OutputType")?.Value;
+                if (outputType != null)
+                {
+                    var str = outputType.ToString();
+                    // 2 = ClassLibrary
+                    if (str == "2" || string.Equals(str, "Library", StringComparison.OrdinalIgnoreCase)) return false;
+                    // 0 = WindowsApp, 1 = Exe
+                    if (str == "0" || str == "1" || string.Equals(str, "Exe", StringComparison.OrdinalIgnoreCase) || string.Equals(str, "WinExe", StringComparison.OrdinalIgnoreCase)) return true;
+                }
+            }
+            catch
+            {
+                // Properties.Item can throw if property is unsupported
+            }
+
+            if (hierarchy != null && hierarchy.IsCapabilityMatch("LaunchProfiles")) return true;
+            if (isWebSiteProject) return true;
+            
+            if (projectTypeGuids.Contains(GuidList.guidCPlusPlus)) 
+            {
+                // Simple heuristic for C++ if we don't dive into Configuration.OutputType
+                return true; 
+            }
+
+            return false;
         }
 
         private static string _GetProjectStringProperty(IVsHierarchy pHierarchy, __VSHPROPID property)

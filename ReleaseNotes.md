@@ -1,5 +1,13 @@
 # Release notes
 
+## Version 1.0.0 (Smart Startup Project Switcher)
+* Rebranded from "Switch Startup Project" to "Smart Startup Project Switcher".
+* Extended architecture compatibility to natively support Visual Studio 2026.
+* Replaced the deprecated `ListAllProjects` configuration property with the `ListSingleProjects` toggle.
+* Implemented strict semantic `OutputType` parsing to intercept and intelligently hide Class Libraries and Test projects from generating dropdown clutter.
+* Migrated from legacy AppVeyor CI to native GitHub Actions workflows.
+
+
 ## Version 4.4
 * Skip Shared Project because they cannot be started.
 * Disable the drop down when the solution is closed.
