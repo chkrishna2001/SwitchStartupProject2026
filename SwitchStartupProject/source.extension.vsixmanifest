@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="a4d1f2e9-42bf-41c3-ab9f-e45f8a002bc5" Version="1.0.0" Language="en-US" Publisher="KrishnaChirravuri" />
+        <Identity Id="a4d1f2e9-42bf-41c3-ab9f-e45f8a002bc5" Version="1.0.0" Language="en-US" Publisher="Krishna Chirravuri" />
         <DisplayName>Smart Startup Project Switcher</DisplayName>
         <Description xml:space="preserve">Smartly switch between startup projects and multi-project configurations. Filters out non-launchable class libraries and test projects.</Description>
         <MoreInfo>https://github.com/chkrishna2001/SwitchStartupProject2026</MoreInfo>
