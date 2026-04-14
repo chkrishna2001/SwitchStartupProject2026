@@ -126,8 +126,8 @@ namespace SwitchStartupProject
         {
             var sb = new StringBuilder();
             sb.AppendLine("/*");
-            sb.AppendLine("    This is a configuration file for the SwitchStartupProject Visual Studio Extension");
-            sb.AppendLine("    See https://github.com/ernstc/SwitchStartupProject2022/blob/main/Configuration.md");
+            sb.AppendLine("    This is a configuration file for the Smart Startup Project Switcher Visual Studio Extension");
+            sb.AppendLine("    See https://github.com/chkrishna2001/SwitchStartupProject2026/blob/main/Configuration.md");
             sb.AppendLine("*/");
             sb.AppendLine("{");
             sb.AppendLine("    /*  Configuration File Version  */");

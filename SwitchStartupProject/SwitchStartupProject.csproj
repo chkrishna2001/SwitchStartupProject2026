@@ -142,8 +142,8 @@
       <Link>Resources\THIRD-PARTY-LICENSES.md</Link>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="..\preview.png">
-      <Link>Resources\preview.png</Link>
+    <Content Include="..\smart_startup_preview.png">
+      <Link>Resources\smart_startup_preview.png</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
